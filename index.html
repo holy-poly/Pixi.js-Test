@@ -46,5 +46,22 @@
     window.addEventListener('resize', function(event){
     	scaleToWindow(app.view);
     });
+
+    //Load an image and run the `setup` function when it's done
+    PIXI.loader
+    	.add('img/robot.png')
+    	.load(setup);
+
+    //This `setup` function will run when the image has loaded
+    function setup() {
+
+    	//Create the sprite
+    	let robot = new PIXI.Sprite(
+    		PIXI.loader.resources['img/robot.png'].texture
+    	);
+
+    	//Add the sprite to the stage
+    	app.stage.addChild(robot);
+    }
 </script>
 </html>
