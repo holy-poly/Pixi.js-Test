@@ -61,7 +61,7 @@
     		// 'img/robot.png',
     		// 'img/robot-jump.png',
     		// 'img/robot-jump-melee.png',
-    		'img/robot.png'
+    		'img/treasureHunter.json'
     	])
     	.on('progress', loadProgressHandler)
     	.load(setup);
@@ -76,6 +76,9 @@
     	//If you gave your files names as the first argument of the 'add' method, you can access them like this
     	// console.log('loading: ' + resources.name);
     }
+
+    //Define variables that might be used in more than one function
+    let map, explorer, enemy, door, treasure, id;
 
     //This `setup` function will run when the image has loaded
     function setup() {
@@ -103,28 +106,59 @@
     	//////////////////////////////////////////////////////////////////////
 
     	//Create the `tileset` sprite from the texture
-    	let robotTexture = TextureCache['img/robot.png'];
+    	// let robotTexture = TextureCache['img/robotSprites.png'];
 
     	//Create a rectangle object that defines the position and
 		//size of the sub-image you want to extract from the texture
 		//(`Rectangle` is an alias for `PIXI.Rectangle`)
 		//PIXI.Rectangle(x, y, width, height);
-		let rectangle = new Rectangle(0, 0, 64, 64);
+		// let rectangle = new Rectangle(0, 0, 64, 64);
 
 		//Tell the texture to use that rectangular section
-		robotTexture.frame = rectangle;
+		// robotTexture.frame = rectangle;
 
 		//Create the sprite from the texture
-		let robotIdle = new Sprite(robotTexture);
+		// let robotIdle = new Sprite(robotTexture);
 
 		//Position the robot sprite on the canvas
-		robotIdle.position.set(50, 50);
+		// robotIdle.position.set(50, 50);
 
 		//Add the robot to the stage
-		app.stage.addChild(robotIdle);
+		// app.stage.addChild(robotIdle);
 
 		//Render the stage
-		app.renderer.render(app.stage);
+		// app.renderer.render(app.stage);
+
+		//////////////////////////////////////////////////////////////////////
+
+		//There are 3 ways to make sprites from textures atlas frames
+
+		//1. Access the `TextureCache` directly
+		let mapTexture = TextureCache['map.png'];
+		map = new Sprite(mapTexture);
+		app.stage.addChild(map);
+
+		//2. Access the texture using through the loader's `resources`:
+		explorer = new Sprite(
+			resources['img/treasureHunter.json'].textures['explorer.png']
+		);
+		explorer.x = 68;
+
+		//Center the explorer vertically
+		explorer.y = app.stage.height / 2 - explorer.height / 2;
+		app.stage.addChild(explorer);
+
+		//3. Create an optional alias called `id` for all the texture atlas frame id textures
+		id = resources["img/treasureHunter.json"].textures;
+
+		//Make the treasure box using the alias
+		treasure = new Sprite(id['treasure.png']);
+		app.stage.addChild(treasure);
+
+		//Position the treasure next to the right edge of the canvas
+		treasure.x = app.stage.width - treasure.width - 48;
+		treasure.y = app.stage.height / 2 - treasure.height / 2;
+		app.stage.addChild(treasure);
     }
 </script>
 </html>
