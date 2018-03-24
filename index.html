@@ -17,7 +17,10 @@
 	    	TextureCache = PIXI.utils.TextureCache,
 	    	Sprite = PIXI.Sprite,
 	    	Rectangle = PIXI.Rectangle,
-	    	ParticleContainer = PIXI.particles.ParticleContainer;
+	    	ParticleContainer = PIXI.particles.ParticleContainer,
+	    	Graphics = PIXI.Graphics,
+	    	Text = PIXI.Text,
+	    	TextStyle = PIXI.TextStyle;
 
 	    //Create a Pixi Application
 	    let app = new Application({
@@ -183,6 +186,61 @@
 
   			//Start the game loop 
 			app.ticker.add(delta => gameLoop(delta));
+
+			//Drawing shape
+			// let shape = new Graphics();
+			// shape.lineStyle(2, 0xFF3300, 1);
+			// shape.beginFill(0x66CCFF);
+
+			// //Rectangle
+			// // shape.drawRect(0, 0, 64, 64);
+
+			// //Circle
+			// // shape.drawCircle(0, 0, 64, 64);
+
+			// //Ellips
+			// // shape.drawEllipse(0, 0, 64, 24);
+
+			// //Round rectangle
+			// shape.drawRoundedRect(0, 0, 64, 64);
+
+			// //Line
+			// // shape.moveTo(0, 0);
+			// // shape.lineTo(80, 40);
+
+			// shape.endFill();
+			// shape.position.set(170, 170);
+			// app.stage.addChild(shape);
+
+			//Drawing rectangle
+			// let triangle = new Graphics();
+			// triangle.beginFill(0x66FF33);
+			// triangle.drawPolygon([
+			// 	-32, 64,	//First point 	point1X, point1Y,
+			// 	32, 64,		//Second point 	point2X, point2Y,
+			// 	0, 0		//Third point 	point3X, point3Y
+			// ]);
+			// triangle.endFill();
+			// triangle.position.set(180, 30);
+			// app.stage.addChild(triangle);
+
+			//Displaying text
+			let styles = new TextStyle({
+				fontFamily: 'Arial',
+				fontSize: 26,
+				fill: 'white',
+				stroke: '#ff3300',
+				strokeThickness: 4,
+				dropShadow: true,
+				dropShadowColor: '#000000',
+				dropShadowBlur: 4,
+				dropShadowAngle: Math.PI / 6,
+				dropShadowDistance: 6,
+			});
+
+			let styledMessage = new Text('Hello World!', styles);
+			styledMessage.position.set(app.stage.width / 2 - styledMessage.width / 2, 50);
+			app.stage.addChild(styledMessage);
 	    }
 
 	    //The `randomInt` helper function
